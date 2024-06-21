@@ -1,0 +1,19 @@
+services:
+  redis:
+    image: cgr.dev/chainguard/redis
+    volumes:
+      - redis-data:/data
+
+  app:
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      REDIS_URL: redis://redis:6379
+      UPLOADS_DIR: /uploads
+    volumes:
+      - uploads:/uploads
+
+volumes:
+  redis-data:
+  uploads:
